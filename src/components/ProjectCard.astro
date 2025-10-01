@@ -1,5 +1,5 @@
 ---
-import { IconExternal, iconForLanguage, IconGithub } from './icons';
+import { iconForLanguage, IconGithub } from './icons';
 const { name, description, topics = [], html_url, homepage, language, technologies = [], extraLinks = [] } = Astro.props;
 ---
 <article class="group rounded-2xl border border-slate-200/60 dark:border-slate-800 p-5 hover:shadow-sm transition flex flex-col h-full">
@@ -50,17 +50,5 @@ const { name, description, topics = [], html_url, homepage, language, technologi
       <span set:html={IconGithub()}></span>
       <span class="hidden sm:inline">GitHub</span>
     </a>
-    {homepage && (
-      <a 
-        href={homepage} 
-        target="_blank" 
-        rel="noreferrer" 
-        class="flex items-center gap-2 px-3 py-2 text-sm bg-green-100 dark:bg-green-900/20 hover:bg-green-200 dark:hover:bg-green-900/30 text-green-700 dark:text-green-300 rounded-lg transition-colors border border-green-200/60 dark:border-green-800"
-        title="Live Preview"
-      >
-        <span set:html={IconExternal()}></span>
-        Preview
-      </a>
-    )}
   </div>
 </article>

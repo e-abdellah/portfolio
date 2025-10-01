@@ -24,13 +24,27 @@ function byName(name: string) {
 
 export async function fetchRepos(): Promise<Repo[]> {
   try {
+    const headers: Record<string, string> = {
+      Accept: "application/vnd.github+json",
+    };
+
+    // Add GitHub token if available (for higher rate limits)
+    const token = import.meta.env.GITHUB_TOKEN;
+    if (token) {
+      headers.Authorization = `Bearer ${token}`;
+    }
+
     const res = await fetch(
       `https://api.github.com/users/${USERNAME}/repos?per_page=100&sort=updated`,
-      {
-        headers: { Accept: "application/vnd.github+json" },
-      }
+      { headers }
     );
-    if (!res.ok) throw new Error(`GitHub API: ${res.status}`);
+
+    if (!res.ok) {
+      const errorBody = await res.text();
+      console.error(`GitHub API Error: ${res.status} - ${errorBody}`);
+      throw new Error(`GitHub API: ${res.status}`);
+    }
+
     const repos: Repo[] = await res.json();
 
     // Filter out excluded
