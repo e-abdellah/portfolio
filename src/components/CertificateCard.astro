@@ -5,9 +5,9 @@ const { title, issuer, issuedOn, url, filePath } = Astro.props;
 <article class="rounded-2xl border border-slate-200/60 dark:border-slate-800 p-5 flex flex-col gap-2">
   <h3 class="text-lg font-semibold tracking-tight">{title}</h3>
   <p class="text-sm text-slate-600 dark:text-slate-300">{issuer} • {issuedOn}</p>
-  <div class="mt-2 flex gap-3">
-    <a class="px-3 py-1.5 rounded-xl bg-sky-600 text-white text-sm hover:bg-sky-500" href={url} target="_blank" rel="noreferrer">View Credential</a>
-    {filePath && <a class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-slate-200/60 dark:border-slate-800 text-sm hover:bg-slate-50 dark:hover:bg-slate-900" href={filePath} target="_blank" rel="noreferrer">
+  <div class="mt-2 flex gap-2 flex-wrap">
+    <a class="flex-1 min-w-[120px] inline-flex items-center justify-center px-3 py-1.5 rounded-xl bg-sky-600 text-white text-sm hover:bg-sky-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/70" href={url} target="_blank" rel="noreferrer">View Credential</a>
+    {filePath && <a class="flex-1 min-w-[120px] inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-xl border border-slate-200/60 dark:border-slate-800 text-sm hover:bg-slate-50 dark:hover:bg-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400/50" href={filePath} target="_blank" rel="noreferrer">
       <span set:html={IconPDF()}></span>
       View PDF
     </a>}
