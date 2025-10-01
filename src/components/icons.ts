@@ -52,7 +52,7 @@ export function iconForLanguage(
 ): string {
   const cls = opts.cls ?? "w-5 h-5";
   if (!language)
-    return placeholderBadge("—", "#E5E7EB", "#374151", cls, opts.rounded);
+    return placeholderBadge("-", "#E5E7EB", "#374151", cls, opts.rounded);
 
   const lang = String(language).toLowerCase();
   // Map common languages to colored badge with short label

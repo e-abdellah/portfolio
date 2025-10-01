@@ -5,7 +5,7 @@ const { name, description, topics = [], html_url, homepage, language, technologi
 <article class="group rounded-2xl border border-slate-200/60 dark:border-slate-800 p-5 hover:shadow-sm transition flex flex-col h-full">
   <div class="flex items-start justify-between gap-3">
     <h3 class="text-lg font-semibold tracking-tight">{name}</h3>
-    <span class="inline-flex items-center justify-center w-6 h-6" title={language || '—'} set:html={iconForLanguage(language, { cls: 'w-6 h-6' })}></span>
+    <span class="inline-flex items-center justify-center w-6 h-6" title={language || '-'} set:html={iconForLanguage(language, { cls: 'w-6 h-6' })}></span>
   </div>
 
   <div class="flex-1">
