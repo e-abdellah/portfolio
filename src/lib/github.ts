@@ -12,7 +12,7 @@ export type Repo = {
 const USERNAME = "AbdellahElh";
 const EXCLUDE = new Set([
   "project",
-  "pwd-manager-backend",
+  "pwd-manager-backend", // Exclude sub-repos of the monorepo
   "pwd-manager-frontend",
   "bachelor-thesis",
   "portfolio",
