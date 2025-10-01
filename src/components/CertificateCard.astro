@@ -9,7 +9,7 @@ const { title, issuer, issuedOn, url, filePath } = Astro.props;
     <a class="px-3 py-1.5 rounded-xl bg-sky-600 text-white text-sm hover:bg-sky-500" href={url} target="_blank" rel="noreferrer">View Credential</a>
     {filePath && <a class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-slate-200/60 dark:border-slate-800 text-sm hover:bg-slate-50 dark:hover:bg-slate-900" href={filePath} target="_blank" rel="noreferrer">
       <span set:html={IconPDF()}></span>
-      Download PDF
+      View PDF
     </a>}
   </div>
 </article>
