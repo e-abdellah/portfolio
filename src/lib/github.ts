@@ -7,6 +7,7 @@ export type Repo = {
   language: string | null;
   topics?: string[];
   technologies?: string[];
+  previewUrl?: string | null;
 };
 
 const USERNAME = "AbdellahElh";
@@ -251,45 +252,41 @@ export async function fetchRepos(): Promise<Repo[]> {
 
     let finalRepos = enhancedRepos;
 
-    if (front || back) {
-      // Remove the individuals
-      finalRepos = enhancedRepos.filter(
-        (r) => ![front?.name, back?.name].includes(r.name)
-      );
+    // Remove the appointment app repos if they exist (in case they become public)
+    finalRepos = enhancedRepos.filter(
+      (r) => ![front?.name, back?.name].includes(r.name)
+    );
 
-      finalRepos.unshift({
-        name: "Medical Appointment Booking Platform",
-        description:
-          "A full-stack medical appointment booking platform featuring patient registration, doctor scheduling, and administrative management. Built with modern web technologies to streamline healthcare appointment processes with secure authentication and real-time availability updates.",
-        html_url:
-          front?.html_url || back?.html_url || `https://github.com/${USERNAME}`,
-        homepage: front?.homepage || back?.homepage || null,
-        stargazers_count: Math.max(
-          front?.stargazers_count || 0,
-          back?.stargazers_count || 0
-        ),
-        language: front?.language || back?.language || "TypeScript",
-        topics: [
-          "react",
-          "node",
-          "express",
-          "booking",
-          "healthcare",
-          "medical",
-          "appointment",
-        ],
-        technologies: [
-          "React",
-          "Node.js",
-          "Express",
-          "TypeScript",
-          "MongoDB",
-          "JWT",
-          "Material-UI",
-          "API Integration",
-        ],
-      });
-    }
+    // Always add the appointment app (since it's private and won't be fetched from GitHub API)
+    finalRepos.unshift({
+      name: "Medical Appointment Booking Platform",
+      description:
+        "A full-stack medical appointment booking platform featuring patient registration, doctor scheduling, and administrative management. Built with modern web technologies to streamline healthcare appointment processes with secure authentication and real-time availability updates.",
+      html_url: "https://github.com/AbdellahElh/Appointment-app-front",
+      homepage: null,
+      stargazers_count: 0,
+      language: "JavaScript",
+      topics: [
+        "react",
+        "node",
+        "koa",
+        "booking",
+        "healthcare",
+        "medical",
+        "appointment",
+      ],
+      technologies: [
+        "React",
+        "Node.js",
+        "Koa",
+        "JavaScript",
+        "MySQL",
+        "JWT",
+        "CSS",
+        "Knex",
+      ],
+      previewUrl: "https://appointment-app-front.vercel.app/",
+    });
 
     // Inject manual projects that may not exist on GitHub
     const hasBachelorThesis = finalRepos.some(

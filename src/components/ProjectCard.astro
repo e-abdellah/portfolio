@@ -1,6 +1,6 @@
 ---
 import { iconForLanguage, IconGithub } from './icons';
-const { name, description, topics = [], html_url, homepage, language, technologies = [], extraLinks = [] } = Astro.props;
+const { name, description, topics = [], html_url, homepage, language, technologies = [], extraLinks = [], previewUrl = null } = Astro.props;
 ---
 <article class="group rounded-2xl border border-slate-200/60 dark:border-slate-800 p-5 hover:shadow-sm transition flex flex-col h-full">
   <div class="flex items-start justify-between gap-3">
@@ -50,5 +50,21 @@ const { name, description, topics = [], html_url, homepage, language, technologi
       <span set:html={IconGithub()}></span>
       <span class="hidden sm:inline">GitHub</span>
     </a>
+    {previewUrl && (
+      <a 
+        href={previewUrl} 
+        target="_blank" 
+        rel="noreferrer" 
+        class="flex items-center gap-2 px-3 py-2 text-sm bg-sky-600 hover:bg-sky-500 text-white rounded-lg transition-colors"
+        title="View Live Preview"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+          <polyline points="15 3 21 3 21 9"></polyline>
+          <line x1="10" y1="14" x2="21" y2="3"></line>
+        </svg>
+        <span class="hidden sm:inline">Preview</span>
+      </a>
+    )}
   </div>
 </article>
