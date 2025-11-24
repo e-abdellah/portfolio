@@ -3,21 +3,18 @@
 ---
 
 <button
-  id="theme-toggle"
   type="button"
-  class="relative inline-flex h-8 w-14 items-center rounded-full bg-slate-200 dark:bg-slate-700 transition-colors focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 dark:focus:ring-offset-slate-950"
+  class="theme-toggle-btn relative inline-flex h-8 w-14 items-center rounded-full bg-slate-200 dark:bg-slate-700 transition-colors focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 dark:focus:ring-offset-slate-950"
   role="switch"
   aria-label="Toggle dark mode"
 >
   <span class="sr-only">Toggle theme</span>
   <span
-    id="theme-toggle-slider"
-    class="inline-flex h-6 w-6 transform items-center justify-center rounded-full bg-white dark:bg-slate-900 shadow-lg transition-transform translate-x-1 dark:translate-x-7"
+    class="theme-toggle-slider inline-flex h-6 w-6 transform items-center justify-center rounded-full bg-white dark:bg-slate-900 shadow-lg transition-transform translate-x-1 dark:translate-x-7"
   >
     <!-- Sun icon (light mode) -->
     <svg
-      id="sun-icon"
-      class="h-4 w-4 text-yellow-500 dark:hidden"
+      class="sun-icon h-4 w-4 text-yellow-500 dark:hidden"
       fill="currentColor"
       viewBox="0 0 20 20"
       xmlns="http://www.w3.org/2000/svg"
@@ -30,8 +27,7 @@
     </svg>
     <!-- Moon icon (dark mode) -->
     <svg
-      id="moon-icon"
-      class="hidden h-4 w-4 text-slate-300 dark:block"
+      class="moon-icon hidden h-4 w-4 text-slate-300 dark:block"
       fill="currentColor"
       viewBox="0 0 20 20"
       xmlns="http://www.w3.org/2000/svg"
@@ -43,24 +39,31 @@
 
 <script is:inline>
   (function () {
+    // Prevent double execution if component is used multiple times
+    if (window.themeToggleInitialized) return;
+    window.themeToggleInitialized = true;
+
     const media = window.matchMedia('(prefers-color-scheme: dark)');
 
     const applyAriaState = () => {
-      const toggle = document.getElementById('theme-toggle');
-      if (!toggle) return;
+      const toggles = document.querySelectorAll('.theme-toggle-btn');
       const isDark = document.documentElement.classList.contains('dark');
-      toggle.setAttribute('aria-checked', String(isDark));
-      toggle.classList.toggle('ring-offset-slate-100', !isDark);
+      toggles.forEach(toggle => {
+        toggle.setAttribute('aria-checked', String(isDark));
+        toggle.classList.toggle('ring-offset-slate-100', !isDark);
+      });
     };
 
     const bindToggle = () => {
-      const toggle = document.getElementById('theme-toggle');
-      if (!toggle) return;
+      const toggles = document.querySelectorAll('.theme-toggle-btn');
+      if (toggles.length === 0) return;
 
-      toggle.addEventListener('click', () => {
-        const isDark = document.documentElement.classList.toggle('dark');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        applyAriaState();
+      toggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+          const isDark = document.documentElement.classList.toggle('dark');
+          localStorage.setItem('theme', isDark ? 'dark' : 'light');
+          applyAriaState();
+        });
       });
 
       applyAriaState();

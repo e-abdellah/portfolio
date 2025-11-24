@@ -7,23 +7,60 @@ const { email = 'e.abdellah.merroun@gmail.com', linkedin = 'https://www.linkedin
 <header class="mb-12">
   <div class="fixed inset-x-0 top-0 z-50 bg-white/80 dark:bg-slate-950/70 backdrop-blur border-b border-slate-200/80 dark:border-slate-800">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-6 py-3">
-    <a href="/" class="font-display text-lg sm:text-2xl font-bold tracking-tight">Abdellah <span class="text-sky-600">El Halimi</span></a>
-    <nav class="flex items-center gap-4 text-sm">
-      <a href="#projects" data-section="projects" class="nav-link hover:underline">Projects</a>
-      <a href="#certs" data-section="certs" class="nav-link hover:underline">Certificates</a>
-      <a href="#about" data-section="about" class="nav-link hover:underline hidden sm:inline">About</a>
-      <a href="#contact" data-section="contact" class="nav-link hover:underline">Contact</a>
-      <ThemeToggle />
-      <a
-        href={github}
-        class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900 text-white hover:bg-slate-800 border border-transparent dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100"
-        target="_blank" rel="noreferrer" aria-label="GitHub profile"
-        title="GitHub"
-      >
-        <span set:html={IconGithub()}></span>
-        <span class="hidden sm:inline">GitHub</span>
-      </a>
-    </nav>
+      <a href="/" class="font-display text-lg sm:text-2xl font-bold tracking-tight relative z-50">Abdellah <span class="text-sky-600">El Halimi</span></a>
+      
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center gap-4 text-sm">
+        <a href="#projects" data-section="projects" class="nav-link hover:underline">Projects</a>
+        <a href="#certs" data-section="certs" class="nav-link hover:underline">Certificates</a>
+        <a href="#about" data-section="about" class="nav-link hover:underline">About</a>
+        <a href="#contact" data-section="contact" class="nav-link hover:underline">Contact</a>
+        <ThemeToggle />
+        <a
+          href={github}
+          class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900 text-white hover:bg-slate-800 border border-transparent dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100"
+          target="_blank" rel="noreferrer" aria-label="GitHub profile"
+          title="GitHub"
+        >
+          <span set:html={IconGithub()}></span>
+          <span class="hidden sm:inline">GitHub</span>
+        </a>
+      </nav>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-btn" class="md:hidden relative z-50 p-2 text-slate-600 dark:text-slate-300 focus:outline-none" aria-label="Toggle menu">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 menu-icon-open">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 menu-icon-close hidden">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white dark:bg-slate-950 transform translate-x-full transition-transform duration-300 md:hidden pt-24 px-6 flex flex-col gap-6 z-40 h-screen overflow-y-auto">
+      <nav class="flex flex-col gap-6 text-lg items-center">
+        <a href="#projects" data-section="projects" class="mobile-nav-link hover:text-sky-600 font-medium">Projects</a>
+        <a href="#certs" data-section="certs" class="mobile-nav-link hover:text-sky-600 font-medium">Certificates</a>
+        <a href="#about" data-section="about" class="mobile-nav-link hover:text-sky-600 font-medium">About</a>
+        <a href="#contact" data-section="contact" class="mobile-nav-link hover:text-sky-600 font-medium">Contact</a>
+        <div class="flex flex-col items-center gap-6 mt-4 w-full border-t border-slate-200 dark:border-slate-800 pt-6">
+            <div class="flex items-center gap-4">
+              <span class="text-sm text-slate-600 dark:text-slate-400">Theme</span>
+              <ThemeToggle />
+            </div>
+            <a
+            href={github}
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 text-white hover:bg-slate-800 border border-transparent dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100 w-full justify-center max-w-xs"
+            target="_blank" rel="noreferrer" aria-label="GitHub profile"
+            title="GitHub"
+            >
+            <span set:html={IconGithub()}></span>
+            <span>GitHub</span>
+            </a>
+        </div>
+      </nav>
     </div>
   </div>
   <div class="mt-24 grid md:grid-cols-[1fr_auto] gap-6 items-start">
@@ -82,5 +119,30 @@ const { email = 'e.abdellah.merroun@gmail.com', linkedin = 'https://www.linkedin
     setActive(initial);
 
     window.addEventListener('hashchange', () => setActive(location.hash.replace('#','')));
+
+    // Mobile Menu Logic
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    const iconOpen = document.querySelector('.menu-icon-open');
+    const iconClose = document.querySelector('.menu-icon-close');
+    const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+    if (btn && menu) {
+      btn.addEventListener('click', () => {
+        menu.classList.toggle('translate-x-full');
+        iconOpen.classList.toggle('hidden');
+        iconClose.classList.toggle('hidden');
+        document.body.classList.toggle('overflow-hidden');
+      });
+
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          menu.classList.add('translate-x-full');
+          iconOpen.classList.remove('hidden');
+          iconClose.classList.add('hidden');
+          document.body.classList.remove('overflow-hidden');
+        });
+      });
+    }
   });
 </script>
