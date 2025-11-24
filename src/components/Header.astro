@@ -1,5 +1,6 @@
 ---
 import { IconGithub, IconLinkedIn } from './icons';
+import ThemeToggle from './ThemeToggle.astro';
 const { email = 'e.abdellah.merroun@gmail.com', linkedin = 'https://www.linkedin.com/in/abdellah-el-halimi-375390314/', github = 'https://github.com/AbdellahElh' } = Astro.props;
 ---
 
@@ -10,8 +11,9 @@ const { email = 'e.abdellah.merroun@gmail.com', linkedin = 'https://www.linkedin
     <nav class="flex items-center gap-4 text-sm">
       <a href="#projects" data-section="projects" class="nav-link hover:underline">Projects</a>
       <a href="#certs" data-section="certs" class="nav-link hover:underline">Certificates</a>
-      <a href="#about" data-section="about" class="nav-link hover:underline">About</a>
+      <a href="#about" data-section="about" class="nav-link hover:underline hidden sm:inline">About</a>
       <a href="#contact" data-section="contact" class="nav-link hover:underline">Contact</a>
+      <ThemeToggle />
       <a
         href={github}
         class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900 text-white hover:bg-slate-800 border border-transparent dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100"
